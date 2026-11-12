@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1706.03762v7",
+    "title": "Attention Is All You Need",
+    "url": "https://arxiv.org/pdf/1706.03762v7.pdf",
+    "local_path": "corpus/raw/1706.03762v7_attention_is_all_you_need.pdf",
+    "sha256": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697",
+    "size_bytes": 2215244
+  },
+  {
+    "id": "2410.00037v1",
+    "title": "Moshi: a speech-text foundation model for real-time dialogue",
+    "url": "https://arxiv.org/pdf/2410.00037v1.pdf",
+    "local_path": "corpus/raw/2410.00037v1_moshi.pdf",
+    "sha256": "a687144cc77bea86b0c60ae800ccb1d3e0816033fa5c7960388fe29a0dbfcfac",
+    "size_bytes": 4694312
+  },
+  {
+    "id": "2507.07955v2",
+    "title": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling",
+    "url": "https://arxiv.org/pdf/2507.07955v2.pdf",
+    "local_path": "corpus/raw/2507.07955v2_dynamic_chunking.pdf",
+    "sha256": "04a2b32e6e82853cfc23c5db132750874a86cde99219ec6f664128f4aa83122f",
+    "size_bytes": 1375282
+  }
+]

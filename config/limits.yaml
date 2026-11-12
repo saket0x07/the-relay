@@ -1,0 +1,9 @@
+limits:
+  rpm_limit: 1000
+  tpm_limit: 8000
+  rpd_limit: 14400
+  max_inflight: 5
+
+models:
+  default_groq: "openai/gpt-oss-20b"
+  groq_endpoint: "https://api.groq.com/openai/v1/chat/completions"

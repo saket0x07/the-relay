@@ -1,0 +1,27 @@
+{
+  "R1": {
+    "target_tokens": 200,
+    "overlap": 0.0,
+    "k": 8,
+    "rerank": false
+  },
+  "R2": {
+    "target_tokens": 400,
+    "overlap": 0.15,
+    "k": 5,
+    "rerank": false
+  },
+  "R3": {
+    "target_tokens": 400,
+    "overlap": 0.15,
+    "k": 5,
+    "rerank": true,
+    "k_candidates": 20
+  },
+  "R4": {
+    "target_tokens": 800,
+    "overlap": 0.0,
+    "k": 3,
+    "rerank": false
+  }
+}
