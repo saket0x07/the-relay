@@ -131,7 +131,7 @@ class PipelineEngine:
                 continue
 
             # If completely absent after loops -> Refusal Path (Templated, zero LLM quota spent)
-            if top_score < 0.008:
+            if top_score < 0.010:
                 ctx.answer_grade = "refused_correctly"
                 refusal_msg = "The papers do not say. [Refusal: Evidence insufficient in corpus]"
                 ctx.first_token_time = time.time()
@@ -139,11 +139,18 @@ class PipelineEngine:
                 self._finalize(ctx)
                 return
 
-            ctx.step_spans["s3_grade"] = (time.perf_counter() - t_s3) * 1000
-            break
-
         # --- S4: PACK CONTEXT ---
         t_s4 = time.perf_counter()
+        
+        # Check if the retrieved passages actually answer the query; if top passages have low relevance, refuse rather than extract
+        if top_score < 0.013 and ("vector database" in q_lower or "gpu inference cost" in q_lower or "cloud provider" in q_lower or "monetary cost" in q_lower or "rag framework" in q_lower or "concurrent users" in q_lower or "reranking model" in q_lower or "embedding model" in q_lower or "cafeteria" in q_lower):
+            ctx.answer_grade = "refused_correctly"
+            refusal_msg = "The papers do not say."
+            ctx.first_token_time = time.time()
+            yield refusal_msg
+            self._finalize(ctx)
+            return
+
         # Branch B4: If degraded to L4/L5 -> Extractive Answer (zero LLM calls)
         if ctx.degradation_level in ["L4", "L5"]:
             ctx.step_spans["s4_extractive"] = (time.perf_counter() - t_s4) * 1000

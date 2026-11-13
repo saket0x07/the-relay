@@ -40,6 +40,10 @@ env/
 # Output files, reports, and benchmark results (strictly excluded)
 REPORT.md
 REPORT.pdf
+SUBMISSION_REPORT.md
+SUBMISSION_REPORT.pdf
+eval/eval_results_68.json
+eval/eval_summary_68.md
 data/
 *.csv
 *.jsonl

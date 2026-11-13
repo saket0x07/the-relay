@@ -69,14 +69,14 @@ The pipeline implements an 8-step state machine with 2 deterministic tools, 5 br
 
 ## 🎚️ 6-Stage Graceful Degradation Ladder
 
-| Level | Condition | Pipeline Behavior | Invariant |
-|---|---|---|---|
-| **L0** | Quota Util < 60% | Full pipeline: large context, reranker enabled, $k=5$ | Peak synthesis quality |
-| **L1** | Util 60%–80% | Skip reranker, fetch $k=4$, immediate SSE stream | Fast Time-to-First-Token |
-| **L2** | Util 80%–95% | Context compression ($k=4$), rule-based S1 understanding | Low token footprint |
-| **L3** | Util > 95% or Queue Backlog | Single retrieval pass (Loop A off), strict completion tokens | Bounded queue latency |
-| **L4** | Circuit Breaker Open / RPD Exhausted | **Extractive Mode**: top verified passages + citations (0 LLM calls) | Truthful answer shipped |
-| **L5** | Low Retrieval Confidence | Honest Refusal: *"The papers do not say; quota resets at HH:MM"* | Never guess or hallucinate |
+| Level  | Condition                            | Pipeline Behavior                                                    | Invariant                  |
+| ------ | ------------------------------------ | -------------------------------------------------------------------- | -------------------------- |
+| **L0** | Quota Util < 60%                     | Full pipeline: large context, reranker enabled, $k=5$                | Peak synthesis quality     |
+| **L1** | Util 60%–80%                         | Skip reranker, fetch $k=4$, immediate SSE stream                     | Fast Time-to-First-Token   |
+| **L2** | Util 80%–95%                         | Context compression ($k=4$), rule-based S1 understanding             | Low token footprint        |
+| **L3** | Util > 95% or Queue Backlog          | Single retrieval pass (Loop A off), strict completion tokens         | Bounded queue latency      |
+| **L4** | Circuit Breaker Open / RPD Exhausted | **Extractive Mode**: top verified passages + citations (0 LLM calls) | Truthful answer shipped    |
+| **L5** | Low Retrieval Confidence             | Honest Refusal: *"The papers do not say; quota resets at HH:MM"*     | Never guess or hallucinate |
 
 ---
 

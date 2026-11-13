@@ -1,0 +1,2081 @@
+[
+  {
+    "question_id": "Q001",
+    "question": "Why did the authors propose the Transformer architecture, and what limitations of recurrent neural networks were they trying to address?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "The authors sought to remove recurrence and its inherently sequential computation, which prevents parallelization across positions within a training example. The Transformer instead uses attention to connect input and output positions globally, improving parallelization and training efficiency while maintaining strong sequence-transduction quality.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "1 Introduction",
+          "3 Model Architecture"
+        ],
+        "pages": [
+          2,
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q002",
+    "question": "What is self-attention, and how does it allow a model to capture relationships between different positions in an input sequence?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "Self-attention relates different positions within the same sequence to compute each position's representation. Each position can use information from other positions in the sequence, allowing dependencies to be modeled without recurrence and regardless of their distance.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "2 Background",
+          "3.2.3"
+        ],
+        "pages": [
+          2,
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q003",
+    "question": "Explain the difference between encoder self-attention, decoder self-attention and encoder-decoder attention.",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "In encoder self-attention, queries, keys and values come from the encoder's previous layer, so each input position can attend to all input positions. Decoder self-attention uses decoder representations but masks future positions, so a position attends only to itself and earlier positions. In encoder-decoder attention, queries come from the decoder while keys and values come from the encoder output, allowing each decoder position to attend across the input sequence.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.3 Applications of Attention in our Model"
+        ],
+        "pages": [
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q004",
+    "question": "What are Query, Key and Value vectors in the scaled dot-product attention mechanism? Explain how they interact to produce the attention output.",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "An attention operation maps a query and a set of key-value pairs to an output. The query is compared with each key to produce compatibility scores; the scores are scaled and passed through softmax to form weights; the output is the weighted sum of the corresponding values.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2 Attention",
+          "3.2.1 Scaled Dot-Product Attention"
+        ],
+        "pages": [
+          4
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q005",
+    "question": "What is positional encoding, and why is it necessary in the Transformer architecture?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "Because the Transformer has neither recurrence nor convolution, positional information must be added so it can use token order. The paper adds positional encodings to the input embeddings at the bottoms of the encoder and decoder stacks. The encodings have the same dimension as the embeddings and can therefore be summed with them.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.5 Positional Encoding"
+        ],
+        "pages": [
+          6
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q006",
+    "question": "Explain the scaled dot-product attention equation. Why do the authors divide the query-key dot product by the square root of the key dimension?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "The operation is Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V. Query-key dot products are divided by √dₖ before softmax. The authors explain that, for large key dimensions, dot products can become large and push softmax into regions with extremely small gradients; scaling counteracts this effect.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.1 Scaled Dot-Product Attention"
+        ],
+        "pages": [
+          4
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "medium",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q007",
+    "question": "How does multi-head attention differ from single-head attention? Why does the paper suggest that multiple attention heads are beneficial?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "Multi-head attention projects queries, keys and values into multiple learned subspaces, computes attention in parallel for each head, concatenates the results and applies a final projection. It lets the model attend jointly to information from different representation subspaces and positions; a single head can lose this diversity through averaging.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.2 Multi-Head Attention"
+        ],
+        "pages": [
+          4,
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "medium",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q008",
+    "question": "Describe the architecture of one Transformer encoder layer and one decoder layer. What are the sub-layers, residual connections and normalization operations used in each?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "An encoder layer has multi-head self-attention followed by a position-wise feed-forward network. Each sub-layer is wrapped in a residual connection and followed by layer normalization, expressed as LayerNorm(x + Sublayer(x)). A decoder layer has those two sub-layers plus a third encoder-decoder attention sub-layer; its self-attention is masked to prevent attending to subsequent positions. The paper's base architecture stacks six encoder and six decoder layers.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.1 Encoder and Decoder Stacks"
+        ],
+        "pages": [
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "medium",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q009",
+    "question": "Why does the Transformer decoder use masked multi-head self-attention? What would happen if future positions were not masked during autoregressive generation?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "The mask prevents a decoder position from attending to subsequent positions. Together with shifting the output embeddings, this ensures the prediction at position i depends only on known outputs before i. Without the mask, training-time predictions could use future target tokens, violating the autoregressive generation constraint and leaking information unavailable at inference.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.1 Encoder and Decoder Stacks",
+          "3.2.3"
+        ],
+        "pages": [
+          3,
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "medium",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q010",
+    "question": "According to the paper, how does the computational complexity and maximum path length of self-attention compare with recurrent and convolutional layers?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "Table 1 reports self-attention complexity O(n²·d), O(1) sequential operations and O(1) maximum path length. Recurrent layers have O(n·d²) complexity, O(n) sequential operations and O(n) path length. Convolutional layers have O(k·n·d²) complexity, O(1) sequential operations and O(logₖ(n)) maximum path length. The paper notes self-attention is faster than recurrent layers when sequence length n is smaller than representation dimension d.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "4 Why Self-Attention",
+          "Table 1"
+        ],
+        "pages": [
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "medium",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q011",
+    "question": "What limitations of traditional spoken dialogue systems motivated the development of Moshi?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The paper identifies compounded latency from pipelines of separate components, loss of non-linguistic information when dialogue is mediated through text, and turn-based segmentation that cannot naturally handle overlapping speech, interruptions and backchanneling.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction"
+        ],
+        "pages": [
+          2,
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q012",
+    "question": "What is full-duplex communication, and how does Moshi support simultaneous listening and speaking?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Full-duplex dialogue allows the user and system audio streams to be active at the same time rather than enforcing alternating speaker turns. Moshi jointly models separate user-input and system-output audio streams and is designed to keep listening while generating sound, including speech or silence.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.1 Overview",
+          "3.4.3"
+        ],
+        "pages": [
+          1,
+          2,
+          6
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q013",
+    "question": "What are Helium and Mimi? Explain their individual roles in the overall Moshi architecture.",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Helium is Moshi's 7-billion-parameter text language-model backbone, providing text-based knowledge and reasoning. Mimi is a neural audio codec that converts audio to discrete tokens and back; it uses residual vector quantization and incorporates distilled semantic information. Moshi combines these components in its speech-text architecture.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.2",
+          "3.3"
+        ],
+        "pages": [
+          2,
+          3,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q014",
+    "question": "What is the purpose of residual vector quantization (RVQ) in the Mimi neural audio codec?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Mimi uses residual vector quantization to represent audio as discrete codec tokens and reconstruct audio from them. The paper also describes distilling semantic information into the first level of acoustic tokens, combining semantic and acoustic information in the codec representation.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.3 Mimi"
+        ],
+        "pages": [
+          2,
+          7,
+          8
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q015",
+    "question": "What is Inner Monologue, and how does predicting time-aligned text tokens before audio tokens improve speech generation?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Inner Monologue predicts time-aligned text tokens as a prefix to audio tokens at each timestep. This text-first structure improves linguistic quality and factuality/consistency of generated speech, and the paper shows that introducing a delay between text and audio tokens can support streaming ASR and streaming TTS.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.4.4"
+        ],
+        "pages": [
+          1,
+          3,
+          10
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q016",
+    "question": "How does Moshi's multi-stream architecture represent the user's audio and the model's generated audio? Why is this approach beneficial for handling interruptions and overlapping speech?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Moshi models the user's incoming audio and its own outgoing audio as separate parallel autoregressive streams. Since it does not require explicit speaker-turn boundaries, it can represent conversational dynamics such as overlap, interruptions and interjections while listening and speaking concurrently.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.4.3"
+        ],
+        "pages": [
+          1,
+          2,
+          9
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q017",
+    "question": "Explain the difference between traditional cascaded ASR–LLM–TTS pipelines and Moshi's speech-to-speech generation architecture.",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "A cascaded system runs separate speech recognition, text dialogue and text-to-speech components, introducing cumulative latency and making text an intermediate bottleneck that can discard emotion, accent and other acoustic cues. Moshi instead generates speech from audio-token streams directly, while using a text LLM backbone and aligned text tokens through Inner Monologue.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "2 Related Work",
+          "3.1"
+        ],
+        "pages": [
+          1,
+          2,
+          5,
+          6
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q018",
+    "question": "What is the role of the Depth Transformer in Moshi? How does it contribute to hierarchical audio-token generation?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The paper uses a Depth Transformer compatible with streaming inference to jointly model Moshi's text tokens and the user and system audio streams. It supports the hierarchical prediction of audio-token levels within the streaming multi-stream architecture.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.1 Overview",
+          "3.4.1",
+          "3.4.2"
+        ],
+        "pages": [
+          6,
+          9,
+          10
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q019",
+    "question": "The paper reports a theoretical latency of 160 ms and practical latency of 200 ms. What architectural choices enable this low-latency operation?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The paper attributes real-time operation to a streaming hierarchical architecture, autoregressive audio-token generation, parallel modeling of user and system streams, and Inner Monologue's per-timestep text/audio prediction rather than waiting for a complete text transcript or utterance before producing audio. The paper reports 160 ms theoretical and 200 ms practical latency.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.4"
+        ],
+        "pages": [
+          1,
+          2,
+          9,
+          10
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q020",
+    "question": "How does Inner Monologue enable Moshi to support streaming speech recognition and streaming text-to-speech?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Inner Monologue predicts time-aligned text tokens before audio tokens. By imposing a delay between the text and audio token streams, the same modeling setup can be used to derive streaming ASR and streaming TTS, rather than requiring complete utterances before output.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.4.4"
+        ],
+        "pages": [
+          3,
+          10
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q021",
+    "question": "What limitations of traditional fixed-vocabulary tokenization motivated the authors to introduce dynamic chunking?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The paper argues that fixed-vocabulary tokenization is a handcrafted preprocessing step with drawbacks including weak character-level understanding, limited interpretability and degraded performance on complex languages and modalities. Dynamic chunking aims to learn content- and context-dependent segmentation jointly with the model.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction"
+        ],
+        "pages": [
+          1,
+          2
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q022",
+    "question": "What is H-Net, and how does its hierarchical architecture differ from a conventional Transformer language model?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "H-Net is an end-to-end hierarchical network that dynamically chunks raw data, processes compressed representations in a main network and then restores them to the original resolution. Unlike a conventional tokenized Transformer pipeline, it learns data-dependent segmentation jointly with the sequence model rather than relying on a fixed external tokenizer.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "2.1"
+        ],
+        "pages": [
+          1,
+          2,
+          4
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q023",
+    "question": "Explain the three main components of H-Net: encoder, main network and decoder. What is the responsibility of each component?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The encoder processes raw, fine-resolution input before chunking/downsampling. The main network operates on the compressed sequence and contains most of the model's parameters. The decoder/dechunking network upsamples and reconstructs representations at the original sequence resolution.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.1.1 Components of H-Net"
+        ],
+        "pages": [
+          2,
+          4,
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q024",
+    "question": "What is dynamic chunking, and how does it learn content-dependent and context-dependent segmentation boundaries?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Dynamic chunking is H-Net's learned segmentation mechanism. A routing module predicts boundaries between adjacent elements using similarity scores; a downsampler retains selected representations to shorten the sequence. The mechanism is trained end-to-end with the rest of the model, with smoothing and an auxiliary downsampling-ratio loss supporting learning.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2 Dynamic Chunking"
+        ],
+        "pages": [
+          2,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q025",
+    "question": "What is the difference between fixed-size chunking and data-dependent dynamic chunking?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Fixed-size chunking divides a sequence according to a predetermined interval, independent of its content. H-Net's dynamic chunking learns boundaries based on the input representations and context, so chunks can vary with the information structure of the data.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.1",
+          "2.2"
+        ],
+        "pages": [
+          2,
+          4,
+          6
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q026",
+    "question": "Explain the routing module and smoothing module in the dynamic chunking mechanism. How do they work together?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The routing module estimates boundary decisions between adjacent representations using similarity. The smoothing module interpolates representations using routing outputs, softening uncertain boundary decisions and improving gradient flow/learnability. Together they enable learned discrete chunking while reducing instability.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2 Dynamic Chunking",
+          "Figure 1"
+        ],
+        "pages": [
+          2,
+          3,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q027",
+    "question": "Why does H-Net use an auxiliary loss function targeting desired downsampling ratios? What problem does it help address?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The auxiliary loss targets desired downsampling ratios, helping control how much the sequence is compressed at each hierarchy stage. It is part of the optimization strategy that makes end-to-end dynamic segmentation trainable and helps maintain the intended compression behavior.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2 Dynamic Chunking"
+        ],
+        "pages": [
+          2,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q028",
+    "question": "How does H-Net preserve autoregressive properties while performing hierarchical compression and decompression?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The paper treats preservation of autoregressive behavior as an explicit architectural requirement and describes mechanisms for maintaining causality through chunking and dechunking during training and inference. A complete answer should retrieve Section 2.4 for the precise masking and boundary-handling details rather than infer them from the high-level overview.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "2.4 Autoregressive Modeling"
+        ],
+        "pages": [
+          8,
+          9
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q029",
+    "question": "What advantages does multi-stage hierarchical chunking provide over single-stage chunking?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Multiple stages create progressively higher levels of abstraction: lower levels capture fine-grained patterns while higher levels process coarser representations. The paper reports that iterating the hierarchy improves performance and scaling with data; a two-stage byte-level H-Net can match downstream evaluations of a tokenized Transformer twice its size.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "Hierarchical Chunking: From Data to Abstractions",
+          "Experimental Results"
+        ],
+        "pages": [
+          2,
+          4,
+          12,
+          13
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q030",
+    "question": "According to the experimental results, how does H-Net compare with BPE-tokenized Transformer models in terms of performance, scaling, robustness and data efficiency?",
+    "category": "single_paper_technical",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The paper reports that compute- and data-matched byte-level H-Net can outperform a strong BPE Transformer, that multi-stage H-Net scales better and can match a tokenized Transformer twice its size, and that H-Net improves robustness to textual perturbations. It also reports particularly strong gains on Chinese, code and DNA; for DNA, H-Net reaches comparable pre-decay perplexity with about 3.6× less training data than isotropic models.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.2 Alternate Language Datasets",
+          "Table 5",
+          "Figure 6"
+        ],
+        "pages": [
+          1,
+          2,
+          16,
+          17
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": ""
+  },
+  {
+    "question_id": "Q031",
+    "question": "How does the Transformer architecture introduced in Attention Is All You Need influence the architecture of Moshi?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Moshi uses a Transformer-based text language-model backbone (Helium) and a smaller Transformer for audio language modeling. The Moshi paper explicitly identifies Helium as based on the Transformer architecture, while adapting it with RMS normalization, RoPE, FlashAttention and gated feed-forward blocks.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3 Model Architecture"
+        ],
+        "pages": [
+          3
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.2 Helium",
+          "3.4 Moshi architecture"
+        ],
+        "pages": [
+          6,
+          7
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q032",
+    "question": "Both Moshi and H-Net use hierarchical processing. How does hierarchical audio-token generation in Moshi differ from hierarchical sequence compression in H-Net?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Moshi hierarchically predicts semantic/acoustic audio tokens (with time-aligned text in Inner Monologue) to generate speech in a streaming fashion. H-Net hierarchically compresses raw sequence representations through learned dynamic chunking, processes the compressed sequence and then de-chunks/upsamples it. The hierarchies operate on different objects and solve different problems.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.3",
+          "3.4"
+        ],
+        "pages": [
+          7,
+          9,
+          10
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "2.1",
+          "2.2"
+        ],
+        "pages": [
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q033",
+    "question": "Compare the role of tokenization in Moshi and H-Net. Why does Moshi use a SentencePiece tokenizer while H-Net attempts to eliminate the conventional tokenization pipeline?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Moshi retains a text tokenizer: Helium uses a SentencePiece unigram tokenizer with 32,000 elements, while Mimi separately represents audio with discrete codec tokens. H-Net instead targets removal of the fixed tokenization–LM–detokenization pipeline by learning dynamic, context-dependent chunks from raw bytes. The papers describe different modalities and objectives; H-Net's tokenizer-free claim should not be incorrectly applied to Moshi.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.2 Helium",
+          "3.3 Mimi"
+        ],
+        "pages": [
+          7,
+          8
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "2.1"
+        ],
+        "pages": [
+          1,
+          2,
+          4
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q034",
+    "question": "How do the three papers approach sequence modeling differently? Compare the Transformer, Moshi's multi-stream architecture and H-Net's hierarchical architecture.",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The original Transformer replaces recurrence with stacked self-attention and feed-forward layers. Moshi adapts Transformer-based language modeling to real-time speech-to-speech dialogue using parallel user/system audio streams and hierarchical audio-token generation. H-Net uses encoder–main-network–decoder stages and learned dynamic chunking to compress raw sequences and model them hierarchically.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "Abstract",
+          "3"
+        ],
+        "pages": [
+          1,
+          3
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "3"
+        ],
+        "pages": [
+          1,
+          6,
+          9
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "2.1"
+        ],
+        "pages": [
+          1,
+          4
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q035",
+    "question": "What are the differences between the attention mechanism in the original Transformer and the streaming hierarchical generation mechanism used by Moshi?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The original Transformer paper defines scaled dot-product and multi-head attention for sequence representations, including encoder, decoder and encoder-decoder attention. Moshi uses Transformer components but its streaming hierarchy concerns predicting semantic and acoustic audio tokens across parallel streams, with a Depth Transformer and Inner Monologue. These are related architectural ideas, not the same mechanism.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2 Attention"
+        ],
+        "pages": [
+          4,
+          5
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.1",
+          "3.4"
+        ],
+        "pages": [
+          6,
+          9,
+          10
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q036",
+    "question": "How does the dynamic chunking mechanism in H-Net address sequence-length efficiency, and how does this differ from the parallelization benefits introduced by the Transformer?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "H-Net reduces sequence length by learning content-dependent boundaries and passing compressed chunks to its main network. The Transformer improves parallelization by removing recurrent sequential computation and allowing attention across positions in parallel. H-Net focuses on learned compression/hierarchy; the original Transformer focuses on attention-based sequence computation.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "1 Introduction",
+          "4 Why Self-Attention"
+        ],
+        "pages": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2"
+        ],
+        "pages": [
+          2,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q037",
+    "question": "Compare the approaches to handling long sequences in all three papers. What architectural mechanisms does each paper introduce?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The Transformer uses self-attention with constant maximum path length but O(n²·d) per-layer complexity, and discusses restricted attention for very long sequences. Moshi uses streaming hierarchical audio-token generation and reports modeling several minutes of context. H-Net compresses raw sequences into learned chunks through recursive hierarchy, reducing the length processed by inner networks.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "4 Why Self-Attention"
+        ],
+        "pages": [
+          6,
+          7
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "5 Evaluation"
+        ],
+        "pages": [
+          1,
+          3,
+          16
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.1",
+          "2.2"
+        ],
+        "pages": [
+          2,
+          4,
+          6
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q038",
+    "question": "Which of the three papers explicitly addresses real-time generation? Explain the architectural choices responsible for its latency characteristics.",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Moshi explicitly targets real-time spoken dialogue and reports 160 ms theoretical and 200 ms practical latency. Its streaming hierarchical generation, parallel input/output audio streams and per-timestep text/audio prediction support this. The other two papers discuss sequence modeling efficiency, not a reported real-time dialogue latency target.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction",
+          "3.4"
+        ],
+        "pages": [
+          1,
+          2,
+          9,
+          10
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q039",
+    "question": "Compare the role of learned representations in the three papers: Transformer embeddings, Moshi's discrete audio representations and H-Net's dynamically compressed representations.",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The Transformer maps tokens to learned d_model-dimensional embeddings and adds positional encodings. Moshi represents audio using discrete Mimi codec tokens, with semantic information distilled into acoustic-token levels, alongside text tokens. H-Net learns compressed sequence representations and chunk boundaries jointly, producing context-dependent units rather than relying on a fixed tokenizer.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.4 Embeddings and Softmax",
+          "3.5"
+        ],
+        "pages": [
+          5,
+          6
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.3 Mimi",
+          "3.4"
+        ],
+        "pages": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "2.1",
+          "2.2"
+        ],
+        "pages": [
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q040",
+    "question": "What are the main trade-offs between fixed tokenization, discrete audio-token modeling and learned dynamic chunking as described in these papers?",
+    "category": "cross_paper_reasoning",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Fixed text tokenization provides compact sequences for language modeling but is a handcrafted preprocessing choice with documented weaknesses on character-level robustness and some languages/modalities. Moshi's discrete audio codec tokens make speech generation and audio-stream modeling tractable while retaining audio information. H-Net learns segmentation end-to-end and reports robustness/efficiency gains, but introduces a more complex hierarchical training and optimization problem. The papers do not provide a single controlled comparison among all three approaches.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.3 Mimi"
+        ],
+        "pages": [
+          7,
+          8
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2",
+          "3.3 Ablation Studies"
+        ],
+        "pages": [
+          2,
+          6,
+          18
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "hard",
+    "evaluation_notes": "Require evidence from each relevant paper; do not treat a shared term as proof that the architectures are identical."
+  },
+  {
+    "question_id": "Q041",
+    "question": "How many encoder and decoder layers does the original Transformer use, and what is its model dimension?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "The described base Transformer uses N = 6 encoder layers and N = 6 decoder layers. Its model dimension is d_model = 512.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.1 Encoder and Decoder Stacks"
+        ],
+        "pages": [
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q042",
+    "question": "How many attention heads are used in the original Transformer, and what are the dimensions of each head?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "The paper uses h = 8 parallel attention heads. For each head, d_k = d_v = d_model/h = 64.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.2 Multi-Head Attention"
+        ],
+        "pages": [
+          5
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q043",
+    "question": "What BLEU scores did the Transformer achieve on the WMT 2014 English-to-German and English-to-French translation tasks?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)"
+    ],
+    "expected_answer": "Table 2 reports Transformer (big) scores of 28.4 BLEU for English-to-German and 41.8 BLEU for English-to-French. Note a textual inconsistency: Section 6.1 says 41.0 for English-to-French, while the abstract and Table 2 report 41.8. A careful answer should surface this discrepancy and cite the table/abstract rather than silently harmonize it.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "Abstract",
+          "Table 2",
+          "6.1 Machine Translation"
+        ],
+        "pages": [
+          1,
+          8
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q044",
+    "question": "How many parameters does Helium contain, and how many tokens was it pretrained on?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Helium is a 7-billion-parameter text language model pretrained on 2.1 trillion tokens of public English data.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.2"
+        ],
+        "pages": [
+          3,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q045",
+    "question": "What is the context length used by Helium, and which tokenizer does it use?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Helium uses a context length of 4,096 tokens. Its tokenizer is based on the SentencePiece unigram model and contains 32,000 elements, mostly targeting English.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.2.1 Architecture"
+        ],
+        "pages": [
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q046",
+    "question": "What theoretical and practical latency figures does Moshi report?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The paper reports 160 ms theoretical latency and 200 ms in practice.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction"
+        ],
+        "pages": [
+          1,
+          2
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q047",
+    "question": "How many minutes of context does the Moshi paper report being able to model in its experiments?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The paper reports that Moshi can model several minutes of context, specifically 5 minutes in its experiments.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction"
+        ],
+        "pages": [
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q048",
+    "question": "According to the H-Net paper, approximately how many bytes per chunk does its dynamic chunking mechanism learn?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The paper reports that the dynamic chunking module naturally compresses data to a similar resolution as BPE tokenizers, approximately 4.5–5 bytes per chunk.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction"
+        ],
+        "pages": [
+          3
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q049",
+    "question": "What improvement in data efficiency does the H-Net paper report for DNA language modeling compared with isotropic models?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The paper reports that H-Net models achieve comparable pre-decay perplexity to corresponding isotropic models with approximately 3.6× less data (about 3.6× greater data efficiency).",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "3.2 Alternate Language Datasets",
+          "Table 5",
+          "Figure 6"
+        ],
+        "pages": [
+          17
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q050",
+    "question": "What performance difference does the paper report on XWinograd-zh between H-Net and the tokenized Transformer?",
+    "category": "numerical_experimental",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Table 4 reports XWinograd-zh accuracy of 0.663 for H-Net (2-stage) and 0.599 for the Transformer, i.e. 66.3% versus 59.9%, a 6.4 percentage-point difference.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "3.2 Alternate Language Datasets",
+          "Table 4"
+        ],
+        "pages": [
+          17
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "answer_with_citation",
+    "difficulty": "easy",
+    "evaluation_notes": "Check exact values and units against the cited table/section. Q043 intentionally checks a source-internal discrepancy."
+  },
+  {
+    "question_id": "Q051",
+    "question": "Which vector database did the authors use to store the training data for Moshi?",
+    "category": "unanswerable",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "Moshi paper does not specify a vector database for storing training data.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q052",
+    "question": "What was the exact GPU inference cost per 1,000 generated responses for H-Net?",
+    "category": "unanswerable",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The H-Net paper does not report an exact GPU inference cost per 1,000 generated responses.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q053",
+    "question": "Which embedding model did the authors use for semantic search across the research papers?",
+    "category": "unanswerable",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The three papers do not describe a semantic-search or RAG embedding model for searching these papers.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q054",
+    "question": "What was the exact retrieval precision@5 achieved by the Transformer paper?",
+    "category": "unanswerable",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The Transformer paper does not report retrieval precision@5; it reports machine-translation and other model evaluations.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q055",
+    "question": "What is the production API rate limit of the Moshi model?",
+    "category": "unanswerable",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The Moshi paper does not specify a production API rate limit.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q056",
+    "question": "Which cloud provider hosted the original H-Net training infrastructure?",
+    "category": "unanswerable",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The H-Net paper does not identify a cloud provider hosting its training infrastructure.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q057",
+    "question": "What is the exact monetary cost of training Helium from scratch?",
+    "category": "unanswerable",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The Moshi paper gives model and training-data details but does not state an exact monetary training cost.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q058",
+    "question": "Which RAG framework did the authors use to retrieve research papers during model training?",
+    "category": "unanswerable",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The papers do not report using a RAG framework to retrieve research papers during model training.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q059",
+    "question": "What is the maximum number of concurrent users supported by Moshi's production deployment?",
+    "category": "unanswerable",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The Moshi paper does not report a production concurrent-user capacity.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q060",
+    "question": "Which reranking model performed best in a benchmark comparing the retrieval quality of these three research papers?",
+    "category": "unanswerable",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "The three papers do not report a RAG reranker benchmark comparing retrieval quality across this paper library.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [],
+        "pages": []
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [],
+        "pages": []
+      }
+    ],
+    "answerable": false,
+    "expected_behavior": "refuse_without_hallucination",
+    "difficulty": "easy",
+    "evaluation_notes": "Expected answer is a clear statement that the supplied paper(s) do not provide this information. Do not answer from outside knowledge."
+  },
+  {
+    "question_id": "Q061",
+    "question": "Explain how multi-head attention works in Moshi.",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The question's attribution is not established by the Moshi paper. The paper describes Helium as Transformer-based and gives its adaptations, but the original Transformer paper is the source for the detailed multi-head attention mechanism (parallel learned projections, per-head attention, concatenation and output projection). A careful answer should distinguish the general Transformer mechanism from Moshi-specific implementation details and not assume Moshi uses the original paper's exact eight-head configuration.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.2"
+        ],
+        "pages": [
+          5
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.2.1 Architecture"
+        ],
+        "pages": [
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q062",
+    "question": "How does Moshi eliminate tokenization?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "It does not eliminate tokenization as framed. Moshi's Helium text backbone uses a SentencePiece unigram tokenizer with 32,000 elements, and its Mimi audio codec uses discrete audio tokens. The tokenizer-free objective belongs to H-Net, which learns dynamic chunking from raw data.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.2.1",
+          "3.3"
+        ],
+        "pages": [
+          7,
+          8
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction"
+        ],
+        "pages": [
+          1,
+          2
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q063",
+    "question": "Does the Transformer support full-duplex conversations?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The original Transformer paper does not describe a full-duplex spoken-dialogue system. It presents an encoder-decoder sequence-transduction architecture with autoregressive masked decoder self-attention. Full-duplex spoken dialogue is the focus of Moshi.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.1",
+          "3.2.3"
+        ],
+        "pages": [
+          3,
+          5
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract",
+          "1 Introduction"
+        ],
+        "pages": [
+          1,
+          2
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q064",
+    "question": "Explain how H-Net achieves 200 ms latency.",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The premise is incorrect: 200 ms is Moshi's reported practical latency, not an H-Net result. The H-Net paper focuses on learned dynamic chunking and hierarchical sequence modeling and does not report this 200 ms dialogue latency.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "Abstract",
+          "1 Introduction"
+        ],
+        "pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "Abstract"
+        ],
+        "pages": [
+          1
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q065",
+    "question": "Does dynamic chunking use RVQ to compress text sequences?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "No. RVQ is used by Mimi, Moshi's neural audio codec, to represent audio with discrete codec tokens. H-Net's dynamic chunking instead uses a routing module to predict boundaries and a smoothing module to interpolate representations, with downsampling and upsampling.",
+    "expected_source": [
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "1 Introduction",
+          "2.2"
+        ],
+        "pages": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.3"
+        ],
+        "pages": [
+          2,
+          7,
+          8
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q066",
+    "question": "What are the eight attention heads responsible for in Moshi's multi-stream architecture?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "The question assumes a Moshi-specific eight-head configuration that is not established by the cited Moshi description. The original Transformer paper uses eight attention heads in its described model, but that value should not be transferred to Moshi without explicit evidence. Moshi's paper describes a multi-stream architecture for user and system audio and a Depth Transformer.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3.2.2"
+        ],
+        "pages": [
+          5
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.1",
+          "3.4"
+        ],
+        "pages": [
+          6,
+          9
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q067",
+    "question": "Does the original Transformer use the Inner Monologue technique?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Attention Is All You Need (arXiv:1706.03762v7)",
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)"
+    ],
+    "expected_answer": "No. Inner Monologue is introduced in the Moshi paper as a method that predicts time-aligned text tokens before audio tokens. The original Transformer paper does not describe this technique.",
+    "expected_source": [
+      {
+        "paper": "Attention Is All You Need (arXiv:1706.03762v7)",
+        "sections": [
+          "3 Model Architecture"
+        ],
+        "pages": [
+          3
+        ]
+      },
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "1 Introduction",
+          "3.4.4"
+        ],
+        "pages": [
+          3,
+          10
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  },
+  {
+    "question_id": "Q068",
+    "question": "What is the difference between Moshi's semantic tokens and H-Net's dynamically learned chunks?",
+    "category": "adversarial_retrieval",
+    "paper": [
+      "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+      "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)"
+    ],
+    "expected_answer": "Moshi's semantic/audio token hierarchy represents speech content in the Mimi codec and supports speech generation; the paper describes semantic information distilled into the first level of acoustic tokens. H-Net's chunks are learned boundaries over raw sequence representations, used to compress and hierarchically process sequences. They are not interchangeable token types and serve different modeling purposes.",
+    "expected_source": [
+      {
+        "paper": "Moshi: a speech-text foundation model for real-time dialogue (arXiv:2410.00037v1)",
+        "sections": [
+          "3.3 Mimi",
+          "3.4"
+        ],
+        "pages": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "paper": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (arXiv:2507.07955v2)",
+        "sections": [
+          "2.1",
+          "2.2"
+        ],
+        "pages": [
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "answerable": true,
+    "expected_behavior": "correct_premise_then_answer",
+    "difficulty": "hard",
+    "evaluation_notes": "Score whether the system detects and corrects the misleading premise, distinguishes the papers, and cites the appropriate source(s)."
+  }
+]
